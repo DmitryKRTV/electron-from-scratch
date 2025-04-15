@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import reactLogo from './assets/react.svg';
+// import reactLogo from './assets/react.svg';
 import './App.css';
 import { useStatistics } from './useStatistics';
 import { Chart } from './Chart';
@@ -37,7 +37,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
+      {/* <Header /> */}
       <div className="main">
         <div>
           <SelectOption
@@ -94,24 +94,24 @@ function SelectOption(props: {
   );
 }
 
-function Header() {
-  return (
-    <header>
-      <button
-        id="close"
-        onClick={() => window.electron.sendFrameAction('CLOSE')}
-      />
-      <button
-        id="minimize"
-        onClick={() => window.electron.sendFrameAction('MINIMIZE')}
-      />
-      <button
-        id="maximize"
-        onClick={() => window.electron.sendFrameAction('MAXIMIZE')}
-      />
-    </header>
-  );
-}
+// function Header() {
+//   return (
+//     <header>
+//       <button
+//         id="close"
+//         onClick={() => window.electron.sendFrameAction('CLOSE')}
+//       />
+//       <button
+//         id="minimize"
+//         onClick={() => window.electron.sendFrameAction('MINIMIZE')}
+//       />
+//       <button
+//         id="maximize"
+//         onClick={() => window.electron.sendFrameAction('MAXIMIZE')}
+//       />
+//     </header>
+//   );
+// }
 
 function useStaticData() {
   const [staticData, setStaticData] = useState<StaticData | null>(null);

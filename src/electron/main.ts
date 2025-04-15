@@ -1,9 +1,10 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, nativeImage } from "electron";
 import { ipcMainHandle, ipcMainOn, isDev } from "./util.js";
 import { getStaticData, pollResources } from "./resourceManager.js";
-import { getPreloadPath, getUIPath } from "./pathResolver.js";
+import { getAssetPath, getPreloadPath, getUIPath } from "./pathResolver.js";
 import { createTray } from "./tray.js";
 import { createMenu } from "./menu.js";
+import path from "path";
 
 app.on("ready", () => {
   const mainWindow = new BrowserWindow({
@@ -11,14 +12,13 @@ app.on("ready", () => {
       preload: getPreloadPath(),
     },
     // disables default system frame (dont do this if you want a proper working menu bar)
-    frame: false,
+    // frame: false,
   });
   if (isDev()) {
     mainWindow.loadURL("http://localhost:5123");
   } else {
     mainWindow.loadFile(getUIPath());
   }
-
   pollResources(mainWindow);
 
   ipcMainHandle("getStaticData", () => {
@@ -38,6 +38,8 @@ app.on("ready", () => {
         break;
     }
   });
+
+  mainWindow.setOverlayIcon(nativeImage.createFromPath(path.join(getAssetPath(), "trayIcon.png")), 'Description for overlay')
 
   createTray(mainWindow);
   handleCloseEvents(mainWindow);
